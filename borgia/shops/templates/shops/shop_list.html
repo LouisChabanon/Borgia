@@ -15,6 +15,7 @@
           <th>Couleur</th>
           <th>Modifier</th>
           <th>Bilan</th>
+          <th>Supprimer</th>
       </tr>
       {% for shop in shop_list %}
       <tr>
@@ -23,6 +24,7 @@
           <td style="background-color: {{ shop.color }}">{{ shop.color }}</td>
           <td><a href="{% url 'url_shop_update' shop_pk=shop.pk %}">Modifier</a></td>
           <td><a href="{% url 'url_shop_checkup' shop_pk=shop.pk %}">Bilan</a></td>
+          <td><a href="{% url 'url_shop_delete' shop_pk=shop.pk %}">Supprimer</a></td>
       </tr>
       {% endfor %}
     </table>

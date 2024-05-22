@@ -44,7 +44,19 @@ class ShopCreate(LoginRequiredMixin, PermissionRequiredMixin, BorgiaFormView):
         """Return the URL to redirect to after processing a valid form."""
         return reverse('url_shop_checkup', kwargs={'shop_pk': self.shop.pk})
 
+class ShopRemove(ShopMixin, LoginRequiredMixin, PermissionRequiredMixin ,BorgiaView):
+    permission_required = 'shops.delete_shop'
+    menu_type = 'managers'
+    template_name = 'shops/shop_remove.html'
+    lm_active = 'lm_shop_delete'
 
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return render(request, self.template_name, context=context)
+
+    def post(self, request, *args, **kwargs):
+        self.shop.delete()
+        return redirect(reverse('url_shop_list'))
 class ShopList(LoginRequiredMixin, PermissionRequiredMixin, BorgiaView):
     """
     View that list the shops.
